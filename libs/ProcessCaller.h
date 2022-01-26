@@ -12,6 +12,7 @@
 #include "Exception.h"
 #include "../assets/ProcessCaller.h"
 
+using std::string;
 namespace bp = boost::process;
 namespace bf = boost::filesystem;
 
@@ -45,10 +46,10 @@ namespace Djib::Process {
         const std::string &get_process_path() const;
 
     private:
-        std::string __process_name;
-        std::string __params;
-        std::string __output;
-        bf::path __process_path;
+        std::string _process_name;
+        std::string _params;
+        std::string _output;
+        bf::path _process_path;
     };
 
 }

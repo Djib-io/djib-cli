@@ -17,3 +17,21 @@ ProcessNotFoundError::ProcessNotFoundError()  {
 ProcessFailedError::ProcessFailedError(const std::string& cause)  {
     throw Exception(std::string(_err_process_failed_) + cause);
 }
+
+
+
+const std::string &ProcessCaller::get_process_name() const {
+    return this->_process_name;
+}
+
+const std::string &ProcessCaller::get_params() const {
+    return this->_params;
+}
+
+const std::string &ProcessCaller::get_output() const {
+    return this->_output;
+}
+
+const std::string &ProcessCaller::get_process_path() const {
+    return this->_process_path.string();
+}
