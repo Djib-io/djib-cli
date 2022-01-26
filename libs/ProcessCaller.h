@@ -7,6 +7,9 @@
 
 #include <string>
 
+#include "Exception.h"
+#include "../assets/ProcessCaller.h"
+
 namespace Djib::Process {
 
     class ProcessNameError{
