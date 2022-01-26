@@ -5,6 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(Boost 1.78 REQUIRED COMPONENTS filesystem)
 
-add_executable(djib-cli main.cpp libs/Exception.cpp libs/Exception.h assets/Exception.h)
+add_executable(djib-cli main.cpp libs/Exception.cpp libs/Exception.h assets/Exception.h libs/ProcessCaller.cpp libs/ProcessCaller.h)
 
 target_link_libraries(djib-cli)
