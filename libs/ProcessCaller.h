@@ -34,7 +34,7 @@ namespace Djib::Process {
     public:
         ProcessFailedError() = delete;
 
-        explicit ProcessFailedError(const std::string &cause);
+        explicit ProcessFailedError(const string &cause);
     };
 
     class ProcessCaller {
@@ -45,27 +45,30 @@ namespace Djib::Process {
 
         ProcessCaller(const ProcessCaller *&other) = delete;
 
-        explicit ProcessCaller(const std::string &process_name, const std::string &params = "");
+        explicit ProcessCaller(const string &process_name, const string &params = "");
 
         ~ProcessCaller() = default;
 
-        const std::string &exec();
+        bool exec();
 
-        const std::string &get_process_name() const;
+        const string &get_process_name() const;
 
-        const std::string &get_output() const;
+        const string &get_output() const;
 
-        const std::string &get_params() const;
+        const string &get_error() const;
 
-        const std::string &get_process_path() const;
+        const string &get_params() const;
+
+        const string &get_process_path() const;
 
     private:
         void __check_process();
 
-        std::string _process_name;
-        std::string _params;
-        std::string _output;
-        bf::path _process_path;
+        string _process_name;
+        string _params;
+        string _output;
+        string _error;
+        string _process_path;
     };
 
 }
