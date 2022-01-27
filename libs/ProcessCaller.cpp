@@ -6,19 +6,29 @@
 
 using namespace Djib::Process;
 
-ProcessNameError::ProcessNameError() {
-    throw Exception(_err_invalid_process_name_);
+ProcessNameError::ProcessNameError() : Exception(_err_invalid_process_name_) {}
+
+ProcessNotFoundError::ProcessNotFoundError() : Exception(_err_process_doesnt_exist_) {}
+
+ProcessFailedError::ProcessFailedError(const std::string &cause) : Exception(
+        std::string(_err_process_failed_) + cause) {}
+
+ProcessCaller::ProcessCaller(const std::string &process_name, const std::string &params) {
+    this->_process_name = process_name;
+    this->_params = params;
+    this->_output = "";
+    ba::trim(this->_process_name);
+    ba::trim(this->_params);
+    this->__check_process();
 }
 
-ProcessNotFoundError::ProcessNotFoundError()  {
-    throw Exception(_err_process_doesnt_exist_);
+void ProcessCaller::__check_process() {
+    if (this->_process_name.empty())
+        throw ProcessNameError();
+    this->_process_path = bp::search_path(this->_process_name);
+    if (this->_process_path.empty())
+        throw ProcessNotFoundError();
 }
-
-ProcessFailedError::ProcessFailedError(const std::string& cause)  {
-    throw Exception(std::string(_err_process_failed_) + cause);
-}
-
-
 
 const std::string &ProcessCaller::get_process_name() const {
     return this->_process_name;

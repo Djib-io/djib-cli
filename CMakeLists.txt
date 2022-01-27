@@ -7,4 +7,4 @@ find_package(Boost 1.78 REQUIRED COMPONENTS filesystem)
 
 add_executable(djib-cli main.cpp libs/Exception.cpp libs/Exception.h assets/Exception.h libs/ProcessCaller.cpp libs/ProcessCaller.h assets/ProcessCaller.h)
 
-target_link_libraries(djib-cli)
+target_link_libraries(djib-cli Boost::filesystem)

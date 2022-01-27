@@ -8,6 +8,7 @@
 #include <string>
 #include <sstream>
 #include <boost/process.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include "Exception.h"
 #include "../assets/ProcessCaller.h"
@@ -15,20 +16,21 @@
 using std::string;
 namespace bp = boost::process;
 namespace bf = boost::filesystem;
+namespace ba = boost::algorithm;
 
 namespace Djib::Process {
 
-    class ProcessNameError{
+    class ProcessNameError : public Djib::Exception {
     public:
         ProcessNameError();
     };
 
-    class ProcessNotFoundError {
+    class ProcessNotFoundError : public Djib::Exception {
     public:
         ProcessNotFoundError();
     };
 
-    class ProcessFailedError {
+    class ProcessFailedError : public Djib::Exception {
     public:
         ProcessFailedError() = delete;
 
@@ -37,6 +39,18 @@ namespace Djib::Process {
 
     class ProcessCaller {
     public:
+        ProcessCaller() = delete;
+
+        ProcessCaller(const ProcessCaller &other) = delete;
+
+        ProcessCaller(const ProcessCaller *&other) = delete;
+
+        explicit ProcessCaller(const std::string &process_name, const std::string &params = "");
+
+        ~ProcessCaller() = default;
+
+        const std::string &exec();
+
         const std::string &get_process_name() const;
 
         const std::string &get_output() const;
@@ -46,6 +60,8 @@ namespace Djib::Process {
         const std::string &get_process_path() const;
 
     private:
+        void __check_process();
+
         std::string _process_name;
         std::string _params;
         std::string _output;
