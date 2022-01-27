@@ -21,7 +21,7 @@ namespace Djib {
 
         Exception(Exception *&other) = delete;
 
-        ~Exception() = default;
+        ~Exception() override = default;
 
         explicit Exception(const std::string &msg);
 
@@ -33,7 +33,7 @@ namespace Djib {
         void set_message(const std::string &msg);
 
     private:
-        std::string __message;
+        std::string _message;
     };
 }
 
